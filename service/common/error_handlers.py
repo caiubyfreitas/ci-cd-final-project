@@ -25,6 +25,7 @@ from . import status
 # Error Handlers
 ######################################################################
 
+
 @app.errorhandler(status.HTTP_400_BAD_REQUEST)
 def bad_request(error):
     """Handles bad requests with 400_BAD_REQUEST"""
@@ -107,4 +108,3 @@ def internal_server_error(error):
         ),
         status.HTTP_500_INTERNAL_SERVER_ERROR,
     )
-
