@@ -31,7 +31,6 @@ def index():
         url=url_for("list_counters", _external=True),
     )
 
-
 ############################################################
 # List counters
 ############################################################
@@ -39,12 +38,9 @@ def index():
 def list_counters():
     """Lists all counters"""
     app.logger.info("Request to list all counters...")
-
     counters = [dict(name=count[0], counter=count[1]) for count in COUNTER.items()]
-
     return jsonify(counters)
-
-
+    
 ############################################################
 # Create counters
 ############################################################
@@ -52,20 +48,16 @@ def list_counters():
 def create_counters(name):
     """Creates a new counter"""
     app.logger.info("Request to Create counter: %s...", name)
-
     if name in COUNTER:
         return abort(status.HTTP_409_CONFLICT, f"Counter {name} already exists")
-
     COUNTER[name] = 0
-
     location_url = url_for("read_counters", name=name, _external=True)
     return (
         jsonify(name=name, counter=0),
         status.HTTP_201_CREATED,
         {"Location": location_url},
     )
-
-
+    
 ############################################################
 # Read counters
 ############################################################
@@ -73,13 +65,10 @@ def create_counters(name):
 def read_counters(name):
     """Reads a single counter"""
     app.logger.info("Request to Read counter: %s...", name)
-
     if name not in COUNTER:
         return abort(status.HTTP_404_NOT_FOUND, f"Counter {name} does not exist")
-
     counter = COUNTER[name]
     return jsonify(name=name, counter=counter)
-
 
 ############################################################
 # Update counters
@@ -88,15 +77,11 @@ def read_counters(name):
 def update_counters(name):
     """Updates a counter"""
     app.logger.info("Request to Update counter: %s...", name)
-
     if name not in COUNTER:
         return abort(status.HTTP_404_NOT_FOUND, f"Counter {name} does not exist")
-
     COUNTER[name] += 1
-
     counter = COUNTER[name]
     return jsonify(name=name, counter=counter)
-
 
 ############################################################
 # Delete counters
@@ -105,12 +90,9 @@ def update_counters(name):
 def delete_counters(name):
     """Deletes a counter"""
     app.logger.info("Request to Delete counter: %s...", name)
-
     if name in COUNTER:
         COUNTER.pop(name)
-
     return "", status.HTTP_204_NO_CONTENT
-
 
 ############################################################
 # Utility for testing
