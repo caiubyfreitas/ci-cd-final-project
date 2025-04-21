@@ -7,7 +7,6 @@ from service.common import status
 
 COUNTER = {}
 
-
 ############################################################
 # Health Endpoint
 ############################################################
@@ -15,8 +14,7 @@ COUNTER = {}
 def health():
     """Health Status"""
     return jsonify(dict(status="OK")), status.HTTP_200_OK
-
-
+    
 ############################################################
 # Index page
 ############################################################
@@ -36,11 +34,11 @@ def index():
 ############################################################
 @app.route("/counters", methods=["GET"])
 def list_counters():
-    """Lists all counters"""
-    app.logger.info("Request to list all counters...")
-    counters = [dict(name=count[0], counter=count[1]) for count in COUNTER.items()]
-    return jsonify(counters)
-    
+  """Lists all counters"""
+  app.logger.info("Request to list all counters...")
+  counters=[dict(name=count[0], counter=count[1]) for count in COUNTER.items()]
+  return jsonify(counters)
+
 ############################################################
 # Create counters
 ############################################################
@@ -57,7 +55,7 @@ def create_counters(name):
         status.HTTP_201_CREATED,
         {"Location": location_url},
     )
-    
+
 ############################################################
 # Read counters
 ############################################################
@@ -68,7 +66,7 @@ def read_counters(name):
     if name not in COUNTER:
         return abort(status.HTTP_404_NOT_FOUND, f"Counter {name} does not exist")
     counter = COUNTER[name]
-    return jsonify(name=name, counter=counter)
+    return jsonify(name=name,counter=counter)
 
 ############################################################
 # Update counters
