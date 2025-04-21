@@ -35,7 +35,7 @@ def bad_request(error):
         ),
         status.HTTP_400_BAD_REQUEST,
     )
-    
+
 @app.errorhandler(status.HTTP_404_NOT_FOUND)
 def not_found(error):
     """Handles resources not found with 404_NOT_FOUND"""
