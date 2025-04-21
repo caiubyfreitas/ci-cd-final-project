@@ -14,11 +14,13 @@ COUNTER = {}
 def health():
     """Health Status"""
     return jsonify(dict(status="OK")), status.HTTP_200_OK
-    
+
+
 ############################################################
 # Index page
 ############################################################
 @app.route("/")
+
 def index():
     """Returns information abut the service"""
     app.logger.info("Request for Base URL")
@@ -33,6 +35,7 @@ def index():
 # List counters
 ############################################################
 @app.route("/counters", methods=["GET"])
+
 def list_counters():
   """Lists all counters"""
   app.logger.info("Request to list all counters...")
@@ -43,6 +46,7 @@ def list_counters():
 # Create counters
 ############################################################
 @app.route("/counters/<name>", methods=["POST"])
+
 def create_counters(name):
     """Creates a new counter"""
     app.logger.info("Request to Create counter: %s...", name)
@@ -60,6 +64,7 @@ def create_counters(name):
 # Read counters
 ############################################################
 @app.route("/counters/<name>", methods=["GET"])
+
 def read_counters(name):
     """Reads a single counter"""
     app.logger.info("Request to Read counter: %s...", name)
@@ -72,6 +77,7 @@ def read_counters(name):
 # Update counters
 ############################################################
 @app.route("/counters/<name>", methods=["PUT"])
+
 def update_counters(name):
     """Updates a counter"""
     app.logger.info("Request to Update counter: %s...", name)
@@ -85,6 +91,7 @@ def update_counters(name):
 # Delete counters
 ############################################################
 @app.route("/counters/<name>", methods=["DELETE"])
+
 def delete_counters(name):
     """Deletes a counter"""
     app.logger.info("Request to Delete counter: %s...", name)
