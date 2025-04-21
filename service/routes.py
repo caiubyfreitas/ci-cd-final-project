@@ -10,6 +10,7 @@ COUNTER = {}
 ############################################################
 # Health Endpoint
 ############################################################
+
 @app.route("/health")
 def health():
     """Health Status"""
@@ -19,8 +20,8 @@ def health():
 ############################################################
 # Index page
 ############################################################
-@app.route("/")
 
+@app.route("/")
 def index():
     """Returns information abut the service"""
     app.logger.info("Request for Base URL")
@@ -31,22 +32,24 @@ def index():
         url=url_for("list_counters", _external=True),
     )
 
+
 ############################################################
 # List counters
 ############################################################
-@app.route("/counters", methods=["GET"])
 
+@app.route("/counters", methods=["GET"])
 def list_counters():
   """Lists all counters"""
   app.logger.info("Request to list all counters...")
   counters=[dict(name=count[0], counter=count[1]) for count in COUNTER.items()]
   return jsonify(counters)
 
+
 ############################################################
 # Create counters
 ############################################################
-@app.route("/counters/<name>", methods=["POST"])
 
+@app.route("/counters/<name>", methods=["POST"])
 def create_counters(name):
     """Creates a new counter"""
     app.logger.info("Request to Create counter: %s...", name)
@@ -60,11 +63,12 @@ def create_counters(name):
         {"Location": location_url},
     )
 
+
 ############################################################
 # Read counters
 ############################################################
-@app.route("/counters/<name>", methods=["GET"])
 
+@app.route("/counters/<name>", methods=["GET"])
 def read_counters(name):
     """Reads a single counter"""
     app.logger.info("Request to Read counter: %s...", name)
@@ -73,11 +77,12 @@ def read_counters(name):
     counter = COUNTER[name]
     return jsonify(name=name,counter=counter)
 
+
 ############################################################
 # Update counters
 ############################################################
-@app.route("/counters/<name>", methods=["PUT"])
 
+@app.route("/counters/<name>", methods=["PUT"])
 def update_counters(name):
     """Updates a counter"""
     app.logger.info("Request to Update counter: %s...", name)
@@ -87,11 +92,12 @@ def update_counters(name):
     counter = COUNTER[name]
     return jsonify(name=name, counter=counter)
 
+
 ############################################################
 # Delete counters
 ############################################################
-@app.route("/counters/<name>", methods=["DELETE"])
 
+@app.route("/counters/<name>", methods=["DELETE"])
 def delete_counters(name):
     """Deletes a counter"""
     app.logger.info("Request to Delete counter: %s...", name)
@@ -99,9 +105,11 @@ def delete_counters(name):
         COUNTER.pop(name)
     return "", status.HTTP_204_NO_CONTENT
 
+
 ############################################################
 # Utility for testing
 ############################################################
+
 def reset_counters():
     """Removes all counters while testing"""
     global COUNTER  # pylint: disable=global-statement
